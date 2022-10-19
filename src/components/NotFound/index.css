@@ -1,0 +1,54 @@
+.not-found-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #161625;
+}
+
+.not-found-img {
+  width: 400px;
+}
+.not-found-heading {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 48px;
+  text-align: center;
+
+  color: #cbd5e1;
+}
+.not-found-paragraph {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 32px;
+  text-align: center;
+
+  color: #94a3b8;
+}
+
+.not-found-button {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 24px;
+  gap: 8px;
+
+  width: 88px;
+  height: 48px;
+
+  /* Light / blue / 600 */
+
+  background: #2563eb;
+  border-radius: 12px;
+}

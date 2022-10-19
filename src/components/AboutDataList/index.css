@@ -1,0 +1,12 @@
+.about-list-card {
+  list-style-type: none;
+  margin-top: 4%;
+}
+.about-paragraph1 {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 32px;
+  color: #007bff;
+}

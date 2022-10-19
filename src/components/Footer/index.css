@@ -1,0 +1,44 @@
+.footer-paragraph {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  color: #94a3b8;
+}
+.footer-main-container {
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.footer-icon-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.git-icon {
+  margin: 15px;
+  height: 50px;
+  color: #cbd5e1;
+  width: 50px;
+}
+.insta-icon {
+  font-family: 'Font Awesome 5 Brands';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 52.9233px;
+  line-height: 61px;
+  margin: 15px;
+  text-align: center;
+
+  color: #cbd5e1;
+}
+.twitter-icon {
+  margin: 15px;
+  height: 50px;
+  color: #cbd5e1;
+  width: 50px;
+}

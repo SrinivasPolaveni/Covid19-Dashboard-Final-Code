@@ -1,0 +1,35 @@
+.about-main-container {
+  background-color: #161625;
+  background-size: cover;
+  margin-top: 0px;
+  padding: 10%;
+  padding-top: 20px;
+}
+.about-heading {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 48px;
+  line-height: 64px;
+  color: #f8fafc;
+}
+.about-paragraph {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  color: #94a3b8;
+}
+.about-heading1 {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 36px;
+  color: #e2e8f0;
+}
+.about-unordered-list-card {
+  padding-left: 0px;
+  margin-bottom: 8%;
+}
