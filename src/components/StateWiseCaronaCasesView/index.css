@@ -1,0 +1,173 @@
+.search-state-name-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 6%;
+  padding-right: 6%;
+}
+.search-state-name-card1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.search-state-name-card2 {
+  background: rgba(2, 132, 199, 0.16);
+  border-radius: 32px;
+  padding: 15px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+.search-state-name-heading {
+  font-family: 'HK Grotesk';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 48px;
+
+  color: #0ea5e9;
+}
+.search-state-name-paragraph {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  color: #cbd5e1;
+}
+.search-state-name-paragraph1 {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 24px;
+  color: #94a3b8;
+}
+.test-confirmed-cases-card {
+  background: #331427;
+  border-radius: 12px;
+  width: 264px;
+  height: 232px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.test-cases-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.confirmed-heading {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  color: #ff073a;
+}
+.Active-heading {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+
+  color: #007bff;
+}
+.Recovered-heading {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+
+  color: #28a745;
+}
+.Deceased-heading {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  color: #6c757d;
+}
+.cases-change-button {
+  border: 0px;
+  background-color: transparent;
+}
+.test-Active-cases-card {
+  background: #132240;
+  border-radius: 12px;
+  width: 264px;
+  height: 232px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.test-Recovered-cases-card {
+  background: #182829;
+  border-radius: 12px;
+  width: 264px;
+  height: 232px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.test-Deceased-cases-card {
+  background: #212230;
+  border-radius: 12px;
+  width: 264px;
+  height: 232px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.district-cases-container-view {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.district-main-container {
+  padding-right: 5%;
+  padding-left: 5%;
+  padding-bottom: 80px;
+}
+.confirmed-heading1 {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 48px;
+  color: #ff073a;
+}
+
+.confirmed-heading2 {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 48px;
+  color: #007bff;
+}
+
+.confirmed-heading3 {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 48px;
+  color: #28a745;
+}
+
+.confirmed-heading4 {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 48px;
+  color: #6c757d;
+}

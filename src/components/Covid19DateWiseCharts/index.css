@@ -1,0 +1,71 @@
+.Line-Chart-heading {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 48px;
+  color: #cbd5e1;
+  margin-left: 6%;
+  margin-bottom: 15px;
+}
+.App {
+  background: #331427;
+  border-radius: 12px;
+  border-radius: 12px;
+  margin-bottom: 32px;
+  padding: 40px;
+  overflow-x: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: default;
+}
+.App1 {
+  background: #132240;
+  border-radius: 12px;
+  border-radius: 12px;
+  margin-bottom: 32px;
+  padding: 40px;
+
+  overflow-x: auto;
+  cursor: default;
+}
+.App2 {
+  background: #182829;
+  border-radius: 12px;
+  border-radius: 12px;
+  margin-bottom: 32px;
+  padding: 40px;
+  overflow-x: auto;
+  cursor: default;
+}
+.App3 {
+  background: #1c1c2b;
+  border-radius: 12px;
+  border-radius: 12px;
+  margin-bottom: 32px;
+  padding: 40px;
+  overflow-x: auto;
+  cursor: default;
+}
+.App4 {
+  background: #230f41;
+  border-radius: 12px;
+  border-radius: 12px;
+  margin-bottom: 32px;
+  padding: 40px;
+  overflow-x: auto;
+  cursor: default;
+}
+
+.Line-Chart-container {
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: default;
+}
+.bar {
+  border-radius: 10px;
+}

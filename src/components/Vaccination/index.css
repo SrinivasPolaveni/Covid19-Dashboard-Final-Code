@@ -1,0 +1,14 @@
+.Vaccination-main-container {
+  background-color: #161625;
+  background-size: cover;
+  margin-top: 0px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100vh;
+}
+.Vaccination-heading {
+  color: #ffffff;
+}

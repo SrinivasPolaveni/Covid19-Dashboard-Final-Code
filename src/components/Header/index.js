@@ -27,6 +27,13 @@ export default function Header() {
             </button>
           </Link>
         </li>
+        <li className="link-items">
+          <Link to="/vaccination">
+            <button type="button" className="button">
+              Vaccination
+            </button>
+          </Link>
+        </li>
       </ul>
     </div>
   )

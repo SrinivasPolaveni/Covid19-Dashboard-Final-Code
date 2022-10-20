@@ -1,0 +1,27 @@
+.district-case-list {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 250px;
+  padding: 0px 20px;
+  margin: 10px;
+}
+.district-case-cases1 {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 28px;
+
+  color: #94a3b8;
+  margin-right: 15px;
+}
+.district-case-cases2 {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  color: #94a3b8;
+}

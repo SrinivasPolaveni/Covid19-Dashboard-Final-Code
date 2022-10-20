@@ -189,7 +189,6 @@ class Home extends Component {
     const response = await fetch(apiUrl, option)
     const data = await response.json()
     if (response.ok === true) {
-      console.log(data)
       this.successfullySetData(data)
     }
   }
@@ -209,8 +208,6 @@ class Home extends Component {
       totalConfirmed += confirmed
       deceasedCases += deceased
       recoveredCases += recovered
-
-      console.log(stateCode)
     })
 
     const activeCases = totalConfirmed - (recoveredCases + deceasedCases)
