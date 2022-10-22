@@ -1,6 +1,6 @@
 import {Component} from 'react'
 import {FcGenericSortingAsc, FcGenericSortingDesc} from 'react-icons/fc'
-import {BiSearch} from 'react-icons/bi'
+import {BsSearch} from 'react-icons/bs'
 import Loader from 'react-loader-spinner'
 import Header from '../Header'
 import Footer from '../Footer'
@@ -214,48 +214,57 @@ class Home extends Component {
 
     return (
       <div className="country-cases-container">
-        <div className="test-cases-card">
-          <h1 className="confirmed-heading">Confirmed</h1>
-          <img
-            src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023343/check-mark_1_1_onb2zw.png"
-            alt="Confirmed"
-            className="image"
-          />
-          <p className="confirmed-heading">{totalConfirmed}</p>
+        <div>
+          <div className="test-cases-card" testid="countryWideConfirmedCases">
+            <p className="confirmed-heading">Confirmed</p>
+            <img
+              src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023343/check-mark_1_1_onb2zw.png"
+              alt="country wide confirmed cases pic"
+              className="image"
+            />
+            <p className="confirmed-heading">{totalConfirmed}</p>
+          </div>
         </div>
-        <div className="test-cases-card">
-          <h1 className="Active-heading">Active</h1>
-          <img
-            src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023152/protection_1_gwazvg.png"
-            alt="Active"
-            className="image"
-          />
-          <p className="Active-heading">{activeCases}</p>
+        <div>
+          <div className="test-cases-card" testid="countryWideActiveCases">
+            <p className="Active-heading">Active</p>
+            <img
+              src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023152/protection_1_gwazvg.png"
+              alt="country wide active cases pic"
+              className="image"
+            />
+            <p className="Active-heading">{activeCases}</p>
+          </div>
         </div>
-        <div className="test-cases-card">
-          <h1 className="Recovered-heading">Recovered</h1>
-          <img
-            src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023111/recovered_1_f7zgdm.png"
-            alt="Recovered"
-            className="image"
-          />
-          <p className="Recovered-heading">{recoveredCases}</p>
+        <div>
+          <div className="test-cases-card" testid="countryWideRecoveredCases">
+            <p className="Recovered-heading">Recovered</p>
+            <img
+              src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023111/recovered_1_f7zgdm.png"
+              alt="country wide recovered cases pic"
+              className="image"
+            />
+            <p className="Recovered-heading">{recoveredCases}</p>
+          </div>
         </div>
-        <div className="test-cases-card">
-          <h1 className="Deceased-heading">Deceased</h1>
-          <img
-            src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023172/breathing_1_yottpw.png"
-            alt="Deceased"
-            className="image"
-          />
-          <p className="Deceased-heading">{deceasedCases}</p>
+        <div>
+          <div className="test-cases-card" testid="countryWideDeceasedCases">
+            <p className="Deceased-heading">Deceased</p>
+            <img
+              src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023172/breathing_1_yottpw.png"
+              alt="country wide deceased cases pic"
+              className="image"
+            />
+            <p className="Deceased-heading">{deceasedCases}</p>
+          </div>
         </div>
       </div>
     )
   }
 
   onChangeListToAsc = () => {
-    this.setState({searchingStateList: statesList})
+    this.setState({searchingStateList: [...statesList]})
+    console.log('hello srinivas')
   }
 
   onChangeListToDsc = () => {
@@ -269,14 +278,18 @@ class Home extends Component {
     const {searchingStateList, dataList} = this.state
     return (
       <>
-        <div className="state-containers">
-          <div className="state-header-containers">
+        <div className="state-containers" testid="stateWiseCovidDataTable">
+          <div
+            className="state-header-containers"
+            testid="stateWiseCovidDataTable"
+          >
+            <p className="States-headeing1">States/UT</p>
             <div className="icon-order">
-              <h1 className="States-headeing1">States/UT</h1>
               <button
                 type="button"
                 onClick={this.onChangeListToAsc}
                 className="asc-button"
+                testid="ascendingSort"
               >
                 <FcGenericSortingAsc className="icon-Asc" />
               </button>
@@ -284,15 +297,16 @@ class Home extends Component {
                 type="button"
                 onClick={this.onChangeListToDsc}
                 className="asc-button"
+                testid="descendingSort"
               >
                 <FcGenericSortingDesc className="icon-Asc" />
               </button>
             </div>
-            <h1 className="States-headeing1">Confirmed</h1>
-            <h1 className="States-headeing1">Active</h1>
-            <h1 className="States-headeing1">Recovered</h1>
-            <h1 className="States-headeing1">Deceased</h1>
-            <h1 className="States-headeing1">Population</h1>
+            <p className="States-headeing2">Confirmed</p>
+            <p className="States-headeing3">Active</p>
+            <p className="States-headeing4">Recovered</p>
+            <p className="States-headeing5">Deceased</p>
+            <p className="States-headeing6">Population</p>
           </div>
           <hr className="horizental-line" />
           <ul className="States-unordered-list-card">
@@ -334,7 +348,10 @@ class Home extends Component {
           .includes(searchInputValue.toLowerCase()),
       )
       return (
-        <ul className="search-input-container1">
+        <ul
+          className="search-input-container1"
+          testid="searchResultsUnorderedList"
+        >
           {filteredListOfState.map(eachItem => (
             <CovidStateSearch
               key={eachItem.state_code}
@@ -353,7 +370,7 @@ class Home extends Component {
       <div className="home-main-container">
         <div className="search-input-card">
           <div className="search-input-container">
-            <BiSearch className="search-icon" />
+            <BsSearch className="search-icon" />
             <input
               type="search"
               placeholder="Enter The State"
@@ -371,7 +388,7 @@ class Home extends Component {
   }
 
   renderLoadingView = () => (
-    <div className="loader-card">
+    <div className="loader-card" testid="homeRouteLoader">
       <Loader type="ThreeDots" color="#0284c7" height={80} width={80} />
     </div>
   )
@@ -395,7 +412,7 @@ class Home extends Component {
     return (
       <>
         <Header />
-        <div className="home-main-container">{this.getRenderingStatus()}</div>
+        <div>{this.getRenderingStatus()}</div>
       </>
     )
   }

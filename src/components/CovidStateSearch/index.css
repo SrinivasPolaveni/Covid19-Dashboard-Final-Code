@@ -48,3 +48,55 @@
 .search-line {
   border: 1px solid #94a3b8;
 }
+@media screen and (max-width: 600px) {
+  .searched-state-list-container {
+    list-style-type: none;
+    background: #1f1f30;
+    padding-left: 8px;
+    padding-right: 8px;
+    border-radius: 5px;
+    border: 0.3px solid #64748b;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+  }
+  .searched-state-list-container1 {
+    list-style-type: none;
+  }
+  .searched-state-name {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+
+    color: #64748b;
+  }
+  .searched-state-button {
+    background: rgba(28, 212, 212, 0.16);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding: 4px 6px;
+    border: 0px;
+    width: 79px;
+    height: 32px;
+    font-family: 'HK Grotesk';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #facc15;
+  }
+  .right-angular-icon {
+    color: #facc15;
+    width: 20px;
+    height: 20px;
+  }
+  .search-line {
+    border: 1px solid #94a3b8;
+  }
+}

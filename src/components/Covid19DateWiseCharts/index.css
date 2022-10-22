@@ -8,7 +8,7 @@
   margin-left: 6%;
   margin-bottom: 15px;
 }
-.App {
+.Line-chart-App {
   background: #331427;
   border-radius: 12px;
   border-radius: 12px;
@@ -18,49 +18,58 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
+  padding-left: 20px;
   cursor: default;
 }
-.App1 {
+.Line-chart-App1 {
   background: #132240;
   border-radius: 12px;
   border-radius: 12px;
   margin-bottom: 32px;
   padding: 40px;
-
+  padding-left: 20px;
   overflow-x: auto;
   cursor: default;
 }
-.App2 {
+.Line-chart-App2 {
   background: #182829;
   border-radius: 12px;
   border-radius: 12px;
   margin-bottom: 32px;
   padding: 40px;
+  padding-left: 20px;
   overflow-x: auto;
   cursor: default;
 }
-.App3 {
+.Line-chart-App3 {
   background: #1c1c2b;
   border-radius: 12px;
   border-radius: 12px;
   margin-bottom: 32px;
   padding: 40px;
+  padding-left: 20px;
   overflow-x: auto;
   cursor: default;
 }
-.App4 {
+.Line-chart-App4 {
   background: #230f41;
   border-radius: 12px;
   border-radius: 12px;
   margin-bottom: 32px;
   padding: 40px;
+  padding-left: 20px;
   overflow-x: auto;
   cursor: default;
 }
 
 .Line-Chart-container {
-  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: default;
+}
+
+.Line-Chart-container1 {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -68,4 +77,73 @@
 }
 .bar {
   border-radius: 10px;
+}
+.text-color-class {
+  color: #cbd5e1;
+}
+@media screen and (min-width: 501px) and (max-width: 767px) {
+  .Line-Chart-heading {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 30px;
+    color: #cbd5e1;
+    margin-left: 15px;
+    margin-bottom: 15px;
+  }
+
+  .Line-Chart-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    cursor: default;
+    overflow-x: auto;
+  }
+  .Line-Chart-container1 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    cursor: default;
+    overflow-x: auto;
+  }
+  .bar {
+    border-radius: 10px;
+  }
+  .text-color-class {
+    color: #cbd5e1;
+  }
+}
+@media screen and (max-width: 500px) {
+  .Line-Chart-heading {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 25px;
+    color: #cbd5e1;
+    margin-left: 2px;
+    margin-bottom: 15px;
+  }
+
+  .Line-Chart-container {
+    overflow-x: auto;
+    margin-left: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .Line-Chart-container1 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    cursor: default;
+    overflow-x: auto;
+  }
+  .bar {
+    border-radius: 10px;
+  }
+  .text-color-class {
+    color: #cbd5e1;
+  }
 }

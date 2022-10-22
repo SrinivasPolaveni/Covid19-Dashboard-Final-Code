@@ -25,3 +25,63 @@
   line-height: 19px;
   color: #94a3b8;
 }
+@media screen and (min-width: 501px) and (max-width: 767px) {
+  .district-case-list {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 200px;
+    padding: 0px 10px;
+    margin: 8px;
+  }
+  .district-case-cases1 {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 20px;
+
+    color: #94a3b8;
+    margin-right: 10px;
+  }
+  .district-case-cases2 {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 19px;
+    color: #94a3b8;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .district-case-list {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 150px;
+    padding: 0px 6px;
+
+    margin: 0px;
+  }
+  .district-case-cases1 {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 20px;
+
+    color: #94a3b8;
+    margin-right: 6px;
+  }
+  .district-case-cases2 {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 15px;
+    color: #94a3b8;
+  }
+}

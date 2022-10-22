@@ -5,9 +5,9 @@
   align-items: center;
   justify-content: space-around;
   margin-bottom: 0px;
-  height: 25%;
+  height: 28%;
 }
-.button {
+.header-button {
   background-color: transparent;
   border: 0px;
   text-align: center;
@@ -23,11 +23,12 @@
   font-family: 'Bree Serif';
   font-style: normal;
   font-weight: 400;
-  font-size: 20px;
-  line-height: 24px;
+  font-size: 16px;
+  line-height: 20px;
   text-align: center;
   color: #f8fafc;
 }
+
 .span-element {
   color: #3b82f6;
   font-family: 'Bree Serif';
@@ -40,4 +41,88 @@
 }
 .link-items {
   list-style-type: none;
+}
+@media screen and (min-width: 501px) and (max-width: 768px) {
+  .header-element {
+    background: #1e1e30;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 0px;
+    height: 28%;
+  }
+  .header-button {
+    background-color: transparent;
+    border: 0px;
+    text-align: center;
+    color: #f8fafc;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    margin-right: 0px;
+  }
+  .covid-heading {
+    font-family: 'Bree Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    color: #f8fafc;
+  }
+  .span-element {
+    color: #3b82f6;
+    font-family: 'Bree Serif';
+  }
+  .list-order {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+}
+@media screen and (max-width: 500px) {
+  .header-element {
+    background: #1e1e30;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 0px;
+
+    height: 28%;
+  }
+
+  .header-button {
+    background-color: transparent;
+    border: 0px;
+    text-align: center;
+    color: #f8fafc;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    margin-right: 0px;
+  }
+  .covid-heading {
+    font-family: 'Bree Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 20px;
+    text-align: center;
+    color: #f8fafc;
+  }
+  .span-element {
+    color: #3b82f6;
+    font-family: 'Bree Serif';
+  }
+  .list-order {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
 }

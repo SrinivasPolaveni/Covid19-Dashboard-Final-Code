@@ -12,6 +12,7 @@ dependencies:
   react-dom: 17.0.1_react@17.0.1
   react-icons: 4.3.1_react@17.0.1
   react-loader-spinner: 4.0.0_react-dom@17.0.1+react@17.0.1
+  react-popup: 0.11.0_react-dom@17.0.1+react@17.0.1
   react-router-dom: 5.3.0_react@17.0.1
   react-select: 4.3.1_react-dom@17.0.1+react@17.0.1
   recharts: 2.1.5_react-dom@17.0.1+react@17.0.1
@@ -9441,6 +9442,10 @@ packages:
       node: '>=4.0'
     resolution:
       integrity: sha512-fYQHZTZ8jSfmWZ0iyzfwiU4WDX4HpHbMCZ3gPlWYiCl3BoeOTsqKBqnTVfH2rYT7eP5c3sVbeSPHnnJOaTrWiw==
+  /keymaster/1.6.2:
+    dev: false
+    resolution:
+      integrity: sha512-OvA/AALN8IDKKkTk2Z+bDrzs/SQao4lo/QPbwSdDvm+frxfiYiYCSn1aHFUypJY3SruAO1y/c771agBmTXqUtg==
   /killable/1.0.1:
     dev: true
     resolution:
@@ -12087,6 +12092,18 @@ packages:
       react-dom: '*'
     resolution:
       integrity: sha512-RU2vpEej6G4ECei0h3q6bgLU10of9Lw5O+4AwF/mtkrX5oY20Sh/AxoPJ7etbrs/7Q3u4jN5qwCwGLRKCHpk6g==
+  /react-popup/0.11.0_react-dom@17.0.1+react@17.0.1:
+    dependencies:
+      keymaster: 1.6.2
+      react: 17.0.1
+      react-dom: 17.0.1_react@17.0.1
+    dev: false
+    peerDependencies:
+      prop-types: ^15.6.0
+      react: ^17.0.2
+      react-dom: ^17.0.2
+    resolution:
+      integrity: sha512-7H5X/VJS2Ay+WBLl62O6hQImD+16lW4LGAGwRoaHqMWXkAfq9/oy3+7z1wkU7MV+9RNKCUVratzZSMZOm9hgcw==
   /react-refresh/0.8.3:
     dev: true
     engines:
@@ -14987,6 +15004,7 @@ specifiers:
   react-dom: 17.0.1
   react-icons: 4.3.1
   react-loader-spinner: 4.0.0
+  react-popup: 0.11.0
   react-router-dom: 5.3.0
   react-scripts: 4.0.3
   react-select: 4.3.1

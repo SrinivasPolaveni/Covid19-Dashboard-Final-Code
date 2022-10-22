@@ -42,7 +42,7 @@ class About extends Component {
   }
 
   renderLoadingView = () => (
-    <div className="loader-card">
+    <div className="loader-card" testid="aboutRouteLoader">
       <Loader type="ThreeDots" color="#0284c7" height={80} width={80} />
     </div>
   )
@@ -57,7 +57,7 @@ class About extends Component {
         <h1 className="about-heading1">
           COVID-19 vaccines be ready for distribution
         </h1>
-        <ul className="about-unordered-list-card">
+        <ul className="about-unordered-list-card" testid="faqsUnorderedList">
           {aboutDataList.map(eachItem => (
             <AboutDataList key={eachItem.qno} itemDetails={eachItem} />
           ))}

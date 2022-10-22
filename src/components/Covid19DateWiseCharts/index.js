@@ -1,4 +1,5 @@
 import {Component} from 'react'
+import Loader from 'react-loader-spinner'
 import {
   LineChart,
   XAxis,
@@ -43,6 +44,9 @@ class Covid19DateWiseCharts extends Component {
   }
 
   getCovid19ChartsTotalData = async () => {
+    this.setState({
+      apiStatus: apiStatusConstant.inProgress,
+    })
     const {stateCode} = this.props
 
     const requestUrl = `https://apis.ccbp.in/covid19-timelines-data/${stateCode}`
@@ -79,22 +83,29 @@ class Covid19DateWiseCharts extends Component {
     const {chartsDataList} = this.state
     const dataList = chartsDataList.slice((-10: -1))
     return (
-      <div className="Line-Chart-container">
+      <div className="Line-Chart-container" testid="lineChartsContainer">
         <BarChart
-          width={900}
+          width={800}
           height={450}
           data={dataList}
           style={{color: '#ff073a'}}
         >
-          <XAxis dataKey="date" />
+          <XAxis
+            dataKey="date"
+            tick={{fill: '#ff073a'}}
+            tickLine={{stroke: '#ff073a'}}
+          />
 
           <Tooltip />
           <Legend />
+
           <Bar
             dataKey="confirmed"
             fill="#ff073a"
             className="bar"
             label={{position: 'top', color: 'white'}}
+            radius={[13, 13, 0, 0]}
+            barSize={45}
           />
         </BarChart>
       </div>
@@ -105,14 +116,18 @@ class Covid19DateWiseCharts extends Component {
     const {chartsDataList} = this.state
     const dataList = chartsDataList.slice((-10: -1))
     return (
-      <div className="Line-Chart-container">
+      <div className="Line-Chart-container" testid="lineChartsContainer">
         <BarChart
-          width={900}
+          width={800}
           height={450}
           data={dataList}
           style={{color: '#0A4FA0'}}
         >
-          <XAxis dataKey="date" />
+          <XAxis
+            dataKey="date"
+            tick={{fill: '#0A4FA0'}}
+            tickLine={{stroke: '#0A4FA0'}}
+          />
 
           <Tooltip />
           <Legend />
@@ -121,6 +136,8 @@ class Covid19DateWiseCharts extends Component {
             fill="#0A4FA0"
             className="bar"
             label={{position: 'top', color: 'white'}}
+            radius={[13, 13, 0, 0]}
+            barSize={45}
           />
         </BarChart>
       </div>
@@ -131,14 +148,18 @@ class Covid19DateWiseCharts extends Component {
     const {chartsDataList} = this.state
     const dataList = chartsDataList.slice((-10: -1))
     return (
-      <div className="Line-Chart-container">
+      <div className="Line-Chart-container" testid="lineChartsContainer">
         <BarChart
-          width={900}
+          width={800}
           height={450}
           data={dataList}
           style={{color: ' #216837'}}
         >
-          <XAxis dataKey="date" />
+          <XAxis
+            dataKey="date"
+            tick={{fill: '#216837'}}
+            tickLine={{stroke: '#216837'}}
+          />
 
           <Tooltip />
           <Legend />
@@ -147,6 +168,8 @@ class Covid19DateWiseCharts extends Component {
             fill="#216837"
             className="bar"
             label={{position: 'top', color: 'white'}}
+            radius={[13, 13, 0, 0]}
+            barSize={45}
           />
         </BarChart>
       </div>
@@ -157,14 +180,18 @@ class Covid19DateWiseCharts extends Component {
     const {chartsDataList} = this.state
     const dataList = chartsDataList.slice((-10: -1))
     return (
-      <div className="Line-Chart-container">
+      <div className="Line-Chart-container" testid="lineChartsContainer">
         <BarChart
-          width={900}
+          width={800}
           height={450}
           data={dataList}
           style={{color: '#474C57'}}
         >
-          <XAxis dataKey="date" />
+          <XAxis
+            dataKey="date"
+            tick={{fill: '#474C57'}}
+            tickLine={{stroke: '#474C57'}}
+          />
 
           <Tooltip />
           <Legend />
@@ -173,6 +200,8 @@ class Covid19DateWiseCharts extends Component {
             fill="#474C57"
             className="bar"
             label={{position: 'top', color: 'white'}}
+            radius={[13, 13, 0, 0]}
+            barSize={45}
           />
         </BarChart>
       </div>
@@ -187,8 +216,8 @@ class Covid19DateWiseCharts extends Component {
         <div className="district-main-container">
           {this.renderBarGraphView()}
           <h1 className="Line-Chart-heading">Daily Spread Trends</h1>
-          <div className="Line-Chart-container">
-            <div className="App">
+          <div className="Line-Chart-container1">
+            <div className="Line-chart-App" testid="lineChartsContainer">
               <LineChart
                 width={730}
                 height={250}
@@ -207,96 +236,102 @@ class Covid19DateWiseCharts extends Component {
                 />
               </LineChart>
             </div>
+          </div>
+          <div className="Line-Chart-container1">
+            <div className="Line-chart-App1 " testid="lineChartsContainer">
+              <LineChart
+                width={730}
+                height={250}
+                data={chartsDataList}
+                margin={{top: 5, right: 30, left: 20, bottom: 5}}
+              >
+                <XAxis dataKey="date" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line
+                  type="monotone"
+                  dataKey="active"
+                  stroke="#007BFF"
+                  className="line-bar1"
+                />
+              </LineChart>
+            </div>
+          </div>
 
-            <div>
-              <div className="App1 recharts-wrapper">
-                <LineChart
-                  width={730}
-                  height={250}
-                  data={chartsDataList}
-                  margin={{top: 5, right: 30, left: 20, bottom: 5}}
-                >
-                  <XAxis dataKey="date" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Line
-                    type="monotone"
-                    dataKey="active"
-                    stroke="#007BFF"
-                    className="line-bar1"
-                  />
-                </LineChart>
-              </div>
+          <div className="Line-Chart-container1">
+            <div className="Line-chart-App2" testid="lineChartsContainer">
+              <LineChart
+                width={730}
+                height={250}
+                data={chartsDataList}
+                margin={{top: 5, right: 30, left: 20, bottom: 5}}
+              >
+                <XAxis dataKey="date" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line
+                  type="monotone"
+                  dataKey="recovered"
+                  stroke="#27A243"
+                  className="line-bar1"
+                />
+              </LineChart>
             </div>
-            <div>
-              <div className="App2">
-                <LineChart
-                  width={730}
-                  height={250}
-                  data={chartsDataList}
-                  margin={{top: 5, right: 30, left: 20, bottom: 5}}
-                >
-                  <XAxis dataKey="date" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Line
-                    type="monotone"
-                    dataKey="recovered"
-                    stroke="#27A243"
-                    className="line-bar1"
-                  />
-                </LineChart>
-              </div>
+          </div>
+          <div className="Line-Chart-container1">
+            <div className="Line-chart-App3" testid="lineChartsContainer">
+              <LineChart
+                width={730}
+                height={250}
+                data={chartsDataList}
+                margin={{top: 5, right: 30, left: 20, bottom: 5}}
+              >
+                <XAxis dataKey="date" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line
+                  type="monotone"
+                  dataKey="deceased"
+                  stroke="#6C757D"
+                  className="line-bar1"
+                />
+              </LineChart>
             </div>
-            <div>
-              <div className="App3">
-                <LineChart
-                  width={730}
-                  height={250}
-                  data={chartsDataList}
-                  margin={{top: 5, right: 30, left: 20, bottom: 5}}
-                >
-                  <XAxis dataKey="date" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Line
-                    type="monotone"
-                    dataKey="deceased"
-                    stroke="#6C757D"
-                    className="line-bar1"
-                  />
-                </LineChart>
-              </div>
-            </div>
-            <div>
-              <div className="App4">
-                <LineChart
-                  width={730}
-                  height={250}
-                  data={chartsDataList}
-                  margin={{top: 5, right: 30, left: 20, bottom: 5}}
-                >
-                  <XAxis dataKey="date" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Line
-                    type="monotone"
-                    dataKey="tested"
-                    stroke=" #9673B9"
-                    className="line-bar5"
-                  />
-                </LineChart>
-              </div>
+          </div>
+          <div className="Line-Chart-container1">
+            <div className="Line-chart-App4" testid="lineChartsContainer">
+              <LineChart
+                width={730}
+                height={250}
+                data={chartsDataList}
+                margin={{top: 5, right: 30, left: 20, bottom: 5}}
+              >
+                <XAxis dataKey="date" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line
+                  type="monotone"
+                  dataKey="tested"
+                  stroke=" #9673B9"
+                  className="line-bar5"
+                />
+              </LineChart>
             </div>
           </div>
         </div>
       </>
     )
   }
+
+  renderLoadingView1 = () => (
+    <div className="loader-card" testid="timelinesDataLoader">
+      <Loader type="ThreeDots" color="#0284c7" height={80} width={80} />
+    </div>
+  )
 
   getRenderingStatus = () => {
     const {apiStatus} = this.state
@@ -305,6 +340,8 @@ class Covid19DateWiseCharts extends Component {
         return this.renderStateTotalChartsData()
       case apiStatusConstant.failure:
         return null
+      case apiStatusConstant.inProgress:
+        return this.renderLoadingView1()
 
       default:
         return null
