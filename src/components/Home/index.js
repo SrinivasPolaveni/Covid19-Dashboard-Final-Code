@@ -187,7 +187,9 @@ class Home extends Component {
       method: 'GET',
     }
     const response = await fetch(apiUrl, option)
+    console.log(response)
     const data = await response.json()
+    console.log(data)
     if (response.ok === true) {
       this.successfullySetData(data)
     }
@@ -215,7 +217,7 @@ class Home extends Component {
     return (
       <div className="country-cases-container">
         <div>
-          <div className="test-cases-card" testid="countryWideConfirmedCases">
+          <div className="test-cases-card">
             <p className="confirmed-heading">Confirmed</p>
             <img
               src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023343/check-mark_1_1_onb2zw.png"
@@ -226,7 +228,7 @@ class Home extends Component {
           </div>
         </div>
         <div>
-          <div className="test-cases-card" testid="countryWideActiveCases">
+          <div className="test-cases-card">
             <p className="Active-heading">Active</p>
             <img
               src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023152/protection_1_gwazvg.png"
@@ -237,7 +239,7 @@ class Home extends Component {
           </div>
         </div>
         <div>
-          <div className="test-cases-card" testid="countryWideRecoveredCases">
+          <div className="test-cases-card">
             <p className="Recovered-heading">Recovered</p>
             <img
               src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023111/recovered_1_f7zgdm.png"
@@ -248,7 +250,7 @@ class Home extends Component {
           </div>
         </div>
         <div>
-          <div className="test-cases-card" testid="countryWideDeceasedCases">
+          <div className="test-cases-card">
             <p className="Deceased-heading">Deceased</p>
             <img
               src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023172/breathing_1_yottpw.png"
@@ -263,33 +265,42 @@ class Home extends Component {
   }
 
   onChangeListToAsc = () => {
-    this.setState({searchingStateList: [...statesList]})
+    const {searchingStateList} = this.state
+
+    const sortedList = searchingStateList.sort((a, b) => {
+      const x = a.state_name.toUpperCase()
+      const y = b.state_name.toUpperCase()
+      return x > y ? 1 : -1
+    })
+
+    this.setState({searchingStateList: sortedList})
     console.log('hello srinivas')
   }
 
   onChangeListToDsc = () => {
     const {searchingStateList} = this.state
-    const sortedList = searchingStateList.sort()
-    const descendingList = sortedList.reverse()
-    this.setState({searchingStateList: descendingList})
+
+    const sortedList = searchingStateList.sort((a, b) => {
+      const x = a.state_name.toUpperCase()
+      const y = b.state_name.toUpperCase()
+      return x < y ? 1 : -1
+    })
+
+    this.setState({searchingStateList: sortedList})
   }
 
   renderStateTotalData = () => {
     const {searchingStateList, dataList} = this.state
     return (
       <>
-        <div className="state-containers" testid="stateWiseCovidDataTable">
-          <div
-            className="state-header-containers"
-            testid="stateWiseCovidDataTable"
-          >
-            <p className="States-headeing1">States/UT</p>
+        <div className="state-containers">
+          <div className="state-header-containers">
             <div className="icon-order">
+              <p className="States-headeing1">States/UT</p>
               <button
                 type="button"
                 onClick={this.onChangeListToAsc}
                 className="asc-button"
-                testid="ascendingSort"
               >
                 <FcGenericSortingAsc className="icon-Asc" />
               </button>
@@ -297,7 +308,6 @@ class Home extends Component {
                 type="button"
                 onClick={this.onChangeListToDsc}
                 className="asc-button"
-                testid="descendingSort"
               >
                 <FcGenericSortingDesc className="icon-Asc" />
               </button>
@@ -325,6 +335,7 @@ class Home extends Component {
                   deceased={deceased}
                   recovered={recovered}
                   population={population}
+                  stateCode={element.state_code}
                 />
               )
             })}
@@ -348,10 +359,7 @@ class Home extends Component {
           .includes(searchInputValue.toLowerCase()),
       )
       return (
-        <ul
-          className="search-input-container1"
-          testid="searchResultsUnorderedList"
-        >
+        <ul className="search-input-container1">
           {filteredListOfState.map(eachItem => (
             <CovidStateSearch
               key={eachItem.state_code}
@@ -388,7 +396,7 @@ class Home extends Component {
   }
 
   renderLoadingView = () => (
-    <div className="loader-card" testid="homeRouteLoader">
+    <div className="loader-card">
       <Loader type="ThreeDots" color="#0284c7" height={80} width={80} />
     </div>
   )

@@ -280,10 +280,7 @@ class StateWiseCaronaCasesView extends Component {
     const listFormattedDataUsingForInMethod = convertObjectsDataIntoListItemsUsingForInMethod()
     listFormattedDataUsingForInMethod.sort((x, y) => y.confirmed - x.confirmed)
     return (
-      <ul
-        className="district-cases-container-view"
-        testid="topDistrictsUnorderedList"
-      >
+      <ul className="district-cases-container-view">
         {listFormattedDataUsingForInMethod.map(eachItem => (
           <DistrictCaseDetails
             key={eachItem.name}
@@ -334,10 +331,7 @@ class StateWiseCaronaCasesView extends Component {
     const listFormattedDataUsingForInMethod = convertObjectsDataIntoListItemsUsingForInMethod()
     listFormattedDataUsingForInMethod.sort((x, y) => y.active - x.active)
     return (
-      <ul
-        className="district-cases-container-view"
-        testid="topDistrictsUnorderedList"
-      >
+      <ul className="district-cases-container-view">
         {listFormattedDataUsingForInMethod.map(eachItem => (
           <DistrictCaseDetails
             key={eachItem.name}
@@ -388,10 +382,7 @@ class StateWiseCaronaCasesView extends Component {
     const listFormattedDataUsingForInMethod = convertObjectsDataIntoListItemsUsingForInMethod()
     listFormattedDataUsingForInMethod.sort((x, y) => y.recovered - x.recovered)
     return (
-      <ul
-        className="district-cases-container-view"
-        testid="topDistrictsUnorderedList"
-      >
+      <ul className="district-cases-container-view">
         {listFormattedDataUsingForInMethod.map(eachItem => (
           <DistrictCaseDetails
             key={eachItem.name}
@@ -442,10 +433,7 @@ class StateWiseCaronaCasesView extends Component {
     const listFormattedDataUsingForInMethod = convertObjectsDataIntoListItemsUsingForInMethod()
     listFormattedDataUsingForInMethod.sort((x, y) => y.deceased - x.deceased)
     return (
-      <ul
-        className="district-cases-container-view"
-        testid="topDistrictsUnorderedList"
-      >
+      <ul className="district-cases-container-view">
         {listFormattedDataUsingForInMethod.map(eachItem => (
           <DistrictCaseDetails
             key={eachItem.name}
@@ -494,10 +482,7 @@ class StateWiseCaronaCasesView extends Component {
             className="cases-change-button"
             onClick={this.onChangeConfirmedCasesView}
           >
-            <div
-              className="test-confirmed-cases-card"
-              testid="stateSpecificConfirmedCasesContainer "
-            >
+            <div className="test-confirmed-cases-card">
               <p className="confirmed-heading">Confirmed</p>
               <img
                 src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023343/check-mark_1_1_onb2zw.png"
@@ -512,10 +497,7 @@ class StateWiseCaronaCasesView extends Component {
             className="cases-change-button"
             onClick={this.onChangeActiveCasesView}
           >
-            <div
-              className="test-cases-card"
-              testid="stateSpecificActiveCasesContainer"
-            >
+            <div className="test-cases-card">
               <p className="Active-heading">Active</p>
               <img
                 src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023152/protection_1_gwazvg.png"
@@ -530,10 +512,7 @@ class StateWiseCaronaCasesView extends Component {
             className="cases-change-button"
             onClick={this.onChangeRecoveredCasesView}
           >
-            <div
-              className="test-cases-card"
-              testid="stateSpecificRecoveredCasesContainer"
-            >
+            <div className="test-cases-card">
               <p className="Recovered-heading">Recovered</p>
               <img
                 src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023111/recovered_1_f7zgdm.png"
@@ -548,10 +527,7 @@ class StateWiseCaronaCasesView extends Component {
             className="cases-change-button"
             onClick={this.onChangeDeceasedCasesView}
           >
-            <div
-              className="test-cases-card"
-              testid="stateSpecificDeceasedCasesContainer"
-            >
+            <div className="test-cases-card">
               <p className="Deceased-heading">Deceased</p>
               <img
                 src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023172/breathing_1_yottpw.png"
@@ -562,7 +538,7 @@ class StateWiseCaronaCasesView extends Component {
             </div>
           </button>
         </div>
-        <div className="district-main-container" testid="lineChartsContainer">
+        <div className="district-main-container">
           <h1 className="confirmed-heading1">Top Districts</h1>
 
           {this.getDistrictWiseConfirmedCases()}
@@ -596,10 +572,7 @@ class StateWiseCaronaCasesView extends Component {
             className="cases-change-button"
             onClick={this.onChangeConfirmedCasesView}
           >
-            <div
-              className="test-cases-card"
-              testid="stateSpecificConfirmedCasesContainer"
-            >
+            <div className="test-cases-card">
               <p className="confirmed-heading">Confirmed</p>
               <img
                 src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023343/check-mark_1_1_onb2zw.png"
@@ -614,10 +587,7 @@ class StateWiseCaronaCasesView extends Component {
             className="cases-change-button"
             onClick={this.onChangeActiveCasesView}
           >
-            <div
-              className="test-Active-cases-card"
-              testid="stateSpecificActiveCasesContainer"
-            >
+            <div className="test-Active-cases-card">
               <p className="Active-heading">Active</p>
               <img
                 src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023152/protection_1_gwazvg.png"
@@ -632,10 +602,7 @@ class StateWiseCaronaCasesView extends Component {
             className="cases-change-button"
             onClick={this.onChangeRecoveredCasesView}
           >
-            <div
-              className="test-cases-card"
-              testid="stateSpecificRecoveredCasesContainer"
-            >
+            <div className="test-cases-card">
               <p className="Recovered-heading">Recovered</p>
               <img
                 src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023111/recovered_1_f7zgdm.png"
@@ -650,10 +617,7 @@ class StateWiseCaronaCasesView extends Component {
             className="cases-change-button"
             onClick={this.onChangeDeceasedCasesView}
           >
-            <div
-              className="test-cases-card"
-              testid="stateSpecificDeceasedCasesContainer"
-            >
+            <div className="test-cases-card">
               <p className="Deceased-heading">Deceased</p>
               <img
                 src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023172/breathing_1_yottpw.png"
@@ -664,7 +628,7 @@ class StateWiseCaronaCasesView extends Component {
             </div>
           </button>
         </div>
-        <div className="district-main-container" testid="lineChartsContainer">
+        <div className="district-main-container">
           <h1 className="confirmed-heading2">Top Districts</h1>
 
           {this.getDistrictWiseActiveCases()}
@@ -698,10 +662,7 @@ class StateWiseCaronaCasesView extends Component {
             className="cases-change-button"
             onClick={this.onChangeConfirmedCasesView}
           >
-            <div
-              className="test-cases-card"
-              testid="stateSpecificConfirmedCasesContainer"
-            >
+            <div className="test-cases-card">
               <p className="confirmed-heading">Confirmed</p>
               <img
                 src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023343/check-mark_1_1_onb2zw.png"
@@ -716,10 +677,7 @@ class StateWiseCaronaCasesView extends Component {
             className="cases-change-button"
             onClick={this.onChangeActiveCasesView}
           >
-            <div
-              className="test-cases-card"
-              testid="stateSpecificActiveCasesContainer"
-            >
+            <div className="test-cases-card">
               <p className="Active-heading">Active</p>
               <img
                 src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023152/protection_1_gwazvg.png"
@@ -734,10 +692,7 @@ class StateWiseCaronaCasesView extends Component {
             className="cases-change-button"
             onClick={this.onChangeRecoveredCasesView}
           >
-            <div
-              className="test-Recovered-cases-card"
-              testid="stateSpecificRecoveredCasesContainer"
-            >
+            <div className="test-Recovered-cases-card">
               <p className="Recovered-heading">Recovered</p>
               <img
                 src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023111/recovered_1_f7zgdm.png"
@@ -752,10 +707,7 @@ class StateWiseCaronaCasesView extends Component {
             className="cases-change-button"
             onClick={this.onChangeDeceasedCasesView}
           >
-            <div
-              className="test-cases-card"
-              testid="stateSpecificDeceasedCasesContainer"
-            >
+            <div className="test-cases-card">
               <p className="Deceased-heading">Deceased</p>
               <img
                 src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023172/breathing_1_yottpw.png"
@@ -766,7 +718,7 @@ class StateWiseCaronaCasesView extends Component {
             </div>
           </button>
         </div>
-        <div className="district-main-container" testid="lineChartsContainer">
+        <div className="district-main-container">
           <h1 className="confirmed-heading3">Top Districts</h1>
 
           {this.getDistrictWiseRecoveredCases()}
@@ -800,10 +752,7 @@ class StateWiseCaronaCasesView extends Component {
             className="cases-change-button"
             onClick={this.onChangeConfirmedCasesView}
           >
-            <div
-              className="test-cases-card"
-              testid="stateSpecificConfirmedCasesContainer"
-            >
+            <div className="test-cases-card">
               <p className="confirmed-heading">Confirmed</p>
               <img
                 src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023343/check-mark_1_1_onb2zw.png"
@@ -818,10 +767,7 @@ class StateWiseCaronaCasesView extends Component {
             className="cases-change-button"
             onClick={this.onChangeActiveCasesView}
           >
-            <div
-              className="test-cases-card"
-              testid="stateSpecificActiveCasesContainer"
-            >
+            <div className="test-cases-card">
               <p className="Active-heading">Active</p>
               <img
                 src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023152/protection_1_gwazvg.png"
@@ -836,10 +782,7 @@ class StateWiseCaronaCasesView extends Component {
             className="cases-change-button"
             onClick={this.onChangeRecoveredCasesView}
           >
-            <div
-              className="test-cases-card"
-              testid="stateSpecificRecoveredCasesContainer"
-            >
+            <div className="test-cases-card">
               <p className="Recovered-heading">Recovered</p>
               <img
                 src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023111/recovered_1_f7zgdm.png"
@@ -854,10 +797,7 @@ class StateWiseCaronaCasesView extends Component {
             className="cases-change-button"
             onClick={this.onChangeDeceasedCasesView}
           >
-            <div
-              className="test-Deceased-cases-card"
-              testid="stateSpecificDeceasedCasesContainer"
-            >
+            <div className="test-Deceased-cases-card">
               <p className="Deceased-heading">Deceased</p>
               <img
                 src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023172/breathing_1_yottpw.png"
@@ -868,7 +808,7 @@ class StateWiseCaronaCasesView extends Component {
             </div>
           </button>
         </div>
-        <div className="district-main-container" testid="lineChartsContainer">
+        <div className="district-main-container">
           <h1 className="confirmed-heading4">Top Districts</h1>
 
           {this.getDistrictWiseDeceasedCases()}
@@ -909,7 +849,7 @@ class StateWiseCaronaCasesView extends Component {
   )
 
   renderLoadingView = () => (
-    <div className="loader-card" testid="stateDetailsLoader">
+    <div className="loader-card">
       <Loader type="ThreeDots" color="#0284c7" height={80} width={80} />
     </div>
   )

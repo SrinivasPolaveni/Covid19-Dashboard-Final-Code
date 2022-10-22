@@ -13,6 +13,11 @@
 .Vaccination-heading {
   color: #ffffff;
 }
+.temporary-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .home {
   color: #ffffff;
   width: 40px;

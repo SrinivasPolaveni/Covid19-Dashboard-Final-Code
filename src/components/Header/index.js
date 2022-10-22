@@ -5,13 +5,11 @@ import './index.css'
 export default function Header() {
   return (
     <div className="header-element">
-      <li className="link-items">
-        <Link to="/">
-          <h1 className="covid-heading">
-            COVID19<span className="span-element">INDIA</span>
-          </h1>
-        </Link>
-      </li>
+      <Link to="/" className="link-state-container">
+        <h1 className="covid-heading">
+          COVID19<span className="span-element">INDIA</span>
+        </h1>
+      </Link>
 
       <ul className="list-order">
         <li className="link-items">

@@ -113,7 +113,9 @@ class Vaccination extends Component {
   )
 
   renderSuccessView = () => (
-    <h1 className="temporary-heading">Wellcome To Vaccination World ...</h1>
+    <div className="temporary-card">
+      <h1 className="temporary-heading">Wellcome To Vaccination World ...</h1>
+    </div>
   )
 
   getRenderingStatus = () => {
@@ -165,8 +167,9 @@ class Vaccination extends Component {
                 />
               </div>
             </div>
-            {this.getRenderingStatus()}
           </div>
+          {this.getRenderingStatus()}
+
           <div className="Select-footer-card">
             <Footer />
           </div>

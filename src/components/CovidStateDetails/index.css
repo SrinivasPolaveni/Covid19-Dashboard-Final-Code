@@ -8,6 +8,9 @@
   padding-right: 1px;
   margin-left: 0px;
 }
+.link-state-container {
+  text-decoration: none;
+}
 .state-name {
   font-family: 'Roboto';
   font-style: normal;

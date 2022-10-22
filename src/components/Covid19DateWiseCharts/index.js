@@ -83,7 +83,7 @@ class Covid19DateWiseCharts extends Component {
     const {chartsDataList} = this.state
     const dataList = chartsDataList.slice((-10: -1))
     return (
-      <div className="Line-Chart-container" testid="lineChartsContainer">
+      <div className="Line-Chart-container">
         <BarChart
           width={800}
           height={450}
@@ -116,7 +116,7 @@ class Covid19DateWiseCharts extends Component {
     const {chartsDataList} = this.state
     const dataList = chartsDataList.slice((-10: -1))
     return (
-      <div className="Line-Chart-container" testid="lineChartsContainer">
+      <div className="Line-Chart-container">
         <BarChart
           width={800}
           height={450}
@@ -148,7 +148,7 @@ class Covid19DateWiseCharts extends Component {
     const {chartsDataList} = this.state
     const dataList = chartsDataList.slice((-10: -1))
     return (
-      <div className="Line-Chart-container" testid="lineChartsContainer">
+      <div className="Line-Chart-container">
         <BarChart
           width={800}
           height={450}
@@ -180,7 +180,7 @@ class Covid19DateWiseCharts extends Component {
     const {chartsDataList} = this.state
     const dataList = chartsDataList.slice((-10: -1))
     return (
-      <div className="Line-Chart-container" testid="lineChartsContainer">
+      <div className="Line-Chart-container">
         <BarChart
           width={800}
           height={450}
@@ -217,7 +217,7 @@ class Covid19DateWiseCharts extends Component {
           {this.renderBarGraphView()}
           <h1 className="Line-Chart-heading">Daily Spread Trends</h1>
           <div className="Line-Chart-container1">
-            <div className="Line-chart-App" testid="lineChartsContainer">
+            <div className="Line-chart-App">
               <LineChart
                 width={730}
                 height={250}
@@ -238,7 +238,7 @@ class Covid19DateWiseCharts extends Component {
             </div>
           </div>
           <div className="Line-Chart-container1">
-            <div className="Line-chart-App1 " testid="lineChartsContainer">
+            <div className="Line-chart-App1 ">
               <LineChart
                 width={730}
                 height={250}
@@ -260,7 +260,7 @@ class Covid19DateWiseCharts extends Component {
           </div>
 
           <div className="Line-Chart-container1">
-            <div className="Line-chart-App2" testid="lineChartsContainer">
+            <div className="Line-chart-App2">
               <LineChart
                 width={730}
                 height={250}
@@ -281,7 +281,7 @@ class Covid19DateWiseCharts extends Component {
             </div>
           </div>
           <div className="Line-Chart-container1">
-            <div className="Line-chart-App3" testid="lineChartsContainer">
+            <div className="Line-chart-App3">
               <LineChart
                 width={730}
                 height={250}
@@ -302,7 +302,7 @@ class Covid19DateWiseCharts extends Component {
             </div>
           </div>
           <div className="Line-Chart-container1">
-            <div className="Line-chart-App4" testid="lineChartsContainer">
+            <div className="Line-chart-App4">
               <LineChart
                 width={730}
                 height={250}
@@ -328,7 +328,7 @@ class Covid19DateWiseCharts extends Component {
   }
 
   renderLoadingView1 = () => (
-    <div className="loader-card" testid="timelinesDataLoader">
+    <div className="loader-card">
       <Loader type="ThreeDots" color="#0284c7" height={80} width={80} />
     </div>
   )
