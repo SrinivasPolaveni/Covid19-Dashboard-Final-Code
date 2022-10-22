@@ -1,27 +1,28 @@
 import {Link} from 'react-router-dom'
-
 import {BiChevronRightSquare} from 'react-icons/bi'
-
 import './index.css'
 
 const CovidStateSearch = props => {
-  const {stateDetails} = props
+  const {stateName, stateCode, id} = props
 
   return (
-    <>
-      <li className="searched-state-list-container1">
-        <Link
-          to={`/state/${stateDetails.state_code}`}
-          className="searched-state-list-container"
-        >
-          <p className="searched-state-name">{stateDetails.state_name}</p>
-          <button type="button" className="searched-state-button">
-            {stateDetails.state_code}
-            <BiChevronRightSquare className="right-angular-icon" />
+    <li>
+      <Link to={`/state/${id}`} className="link-search">
+        <div className="search-result">
+          <h1 className="search-result-heading font-face-gm">{stateName}</h1>
+
+          <button type="button" className="search-button">
+            {stateCode}
+            <BiChevronRightSquare
+              testid="searchResultChevronRightIcon"
+              alt="line icon"
+              className="icon-right"
+            />
           </button>
-        </Link>
-      </li>
-    </>
+        </div>
+      </Link>
+    </li>
   )
 }
+
 export default CovidStateSearch

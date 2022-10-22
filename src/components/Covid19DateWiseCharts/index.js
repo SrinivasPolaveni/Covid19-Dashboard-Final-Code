@@ -1,373 +1,186 @@
 import {Component} from 'react'
-import Loader from 'react-loader-spinner'
 import {
   LineChart,
+  Line,
   XAxis,
   YAxis,
   Tooltip,
   Legend,
-  Line,
   BarChart,
   Bar,
 } from 'recharts'
-
+import Loader from 'react-loader-spinner'
 import './index.css'
 
-const apiStatusConstant = {
-  initial: 'INITIAL',
-  success: 'SUCCESS',
-  failure: 'FAILURE',
-  inProgress: 'INPROGRESS',
-}
-
-const casesStatusConstant = {
-  confirmed: 'CONFIRMED',
-  active: 'ACTIVE',
-  recovered: 'RECOVERED',
-  deceased: 'DECEASED',
-}
-
 class Covid19DateWiseCharts extends Component {
-  state = {chartsDataList: [], apiStatus: apiStatusConstant.initial}
+  state = {
+    allData: '',
+    forOtherChart: '',
+    isLoading: true,
+  }
 
   componentDidMount() {
-    this.getCovid19ChartsTotalData()
+    this.getChartData()
   }
 
-  getConvertionData = requestedData => {
-    console.log(requestedData)
-
-    this.setState({
-      chartsDataList: requestedData,
-      apiStatus: apiStatusConstant.success,
-    })
-  }
-
-  getCovid19ChartsTotalData = async () => {
-    this.setState({
-      apiStatus: apiStatusConstant.inProgress,
-    })
+  getChartData = async () => {
     const {stateCode} = this.props
-
-    const requestUrl = `https://apis.ccbp.in/covid19-timelines-data/${stateCode}`
+    const apiUrl = `https://apis.ccbp.in/covid19-timelines-data`
     const options = {
       method: 'GET',
     }
 
-    const response = await fetch(requestUrl, options)
+    const response = await fetch(apiUrl, options)
+    if (response.ok) {
+      const data = await response.json()
 
-    const data = await response.json()
-    console.log(data)
-    if (response.ok === true) {
-      const keyNames = Object.keys(data)
-      const searchingData = Object.keys(data[keyNames].dates)
+      const dataDateWise = Object.keys(data[stateCode].dates)
 
-      const requestedData = searchingData.map(date => ({
+      const particularState = dataDateWise.map(date => ({
         date,
-        confirmed: data[keyNames].dates[date].total.confirmed,
-        deceased: data[keyNames].dates[date].total.deceased,
-        recovered: data[keyNames].dates[date].total.recovered,
-        tested: data[keyNames].dates[date].total.tested,
+        confirmed: data[stateCode].dates[date].total.confirmed,
+        deceased: data[stateCode].dates[date].total.deceased,
+        recovered: data[stateCode].dates[date].total.recovered,
+        tested: data[stateCode].dates[date].total.tested,
         active:
-          data[keyNames].dates[date].total.confirmed -
-          (data[keyNames].dates[date].total.deceased +
-            data[keyNames].dates[date].total.recovered),
+          data[stateCode].dates[date].total.confirmed -
+          (data[stateCode].dates[date].total.deceased +
+            data[stateCode].dates[date].total.recovered),
       }))
-      this.getConvertionData(requestedData)
-    } else {
-      this.setState({apiStatus: apiStatusConstant.failure})
+
+      const particularStateForOtherChart = dataDateWise.map(date => ({
+        date,
+        confirmed: data[stateCode].dates[date].total.confirmed,
+        deceased: data[stateCode].dates[date].total.deceased,
+        recovered: data[stateCode].dates[date].total.recovered,
+        tested: data[stateCode].dates[date].total.tested,
+        active:
+          data[stateCode].dates[date].total.confirmed -
+          (data[stateCode].dates[date].total.deceased +
+            data[stateCode].dates[date].total.recovered),
+      }))
+
+      this.setState({
+        allData: particularState,
+        forOtherChart: particularStateForOtherChart,
+        isLoading: false,
+      })
     }
   }
 
-  renderConfirmedBarGraphView = () => {
-    const {chartsDataList} = this.state
-    const dataList = chartsDataList.slice((-10: -1))
-    return (
-      <div className="Line-Chart-container">
-        <BarChart
-          width={800}
-          height={450}
-          data={dataList}
-          style={{color: '#ff073a'}}
-        >
-          <XAxis
-            dataKey="date"
-            tick={{fill: '#ff073a'}}
-            tickLine={{stroke: '#ff073a'}}
-          />
-
-          <Tooltip />
-          <Legend />
-
-          <Bar
-            dataKey="confirmed"
-            fill="#ff073a"
-            className="bar"
-            label={{position: 'top', color: 'white'}}
-            radius={[13, 13, 0, 0]}
-            barSize={45}
-          />
-        </BarChart>
-      </div>
-    )
-  }
-
-  renderActiveBarGraphView = () => {
-    const {chartsDataList} = this.state
-    const dataList = chartsDataList.slice((-10: -1))
-    return (
-      <div className="Line-Chart-container">
-        <BarChart
-          width={800}
-          height={450}
-          data={dataList}
-          style={{color: '#0A4FA0'}}
-        >
-          <XAxis
-            dataKey="date"
-            tick={{fill: '#0A4FA0'}}
-            tickLine={{stroke: '#0A4FA0'}}
-          />
-
-          <Tooltip />
-          <Legend />
-          <Bar
-            dataKey="active"
-            fill="#0A4FA0"
-            className="bar"
-            label={{position: 'top', color: 'white'}}
-            radius={[13, 13, 0, 0]}
-            barSize={45}
-          />
-        </BarChart>
-      </div>
-    )
-  }
-
-  renderRecoveredBarGraphView = () => {
-    const {chartsDataList} = this.state
-    const dataList = chartsDataList.slice((-10: -1))
-    return (
-      <div className="Line-Chart-container">
-        <BarChart
-          width={800}
-          height={450}
-          data={dataList}
-          style={{color: ' #216837'}}
-        >
-          <XAxis
-            dataKey="date"
-            tick={{fill: '#216837'}}
-            tickLine={{stroke: '#216837'}}
-          />
-
-          <Tooltip />
-          <Legend />
-          <Bar
-            dataKey="recovered"
-            fill="#216837"
-            className="bar"
-            label={{position: 'top', color: 'white'}}
-            radius={[13, 13, 0, 0]}
-            barSize={45}
-          />
-        </BarChart>
-      </div>
-    )
-  }
-
-  renderDeceasedBarGraphView = () => {
-    const {chartsDataList} = this.state
-    const dataList = chartsDataList.slice((-10: -1))
-    return (
-      <div className="Line-Chart-container">
-        <BarChart
-          width={800}
-          height={450}
-          data={dataList}
-          style={{color: '#474C57'}}
-        >
-          <XAxis
-            dataKey="date"
-            tick={{fill: '#474C57'}}
-            tickLine={{stroke: '#474C57'}}
-          />
-
-          <Tooltip />
-          <Legend />
-          <Bar
-            dataKey="deceased"
-            fill="#474C57"
-            className="bar"
-            label={{position: 'top', color: 'white'}}
-            radius={[13, 13, 0, 0]}
-            barSize={45}
-          />
-        </BarChart>
-      </div>
-    )
-  }
-
-  renderStateTotalChartsData = () => {
-    const {chartsDataList} = this.state
-
-    return (
-      <>
-        <div className="district-main-container">
-          {this.renderBarGraphView()}
-          <h1 className="Line-Chart-heading">Daily Spread Trends</h1>
-          <div className="Line-Chart-container1">
-            <div className="Line-chart-App">
-              <LineChart
-                width={730}
-                height={250}
-                data={chartsDataList}
-                margin={{top: 5, right: 30, left: 20, bottom: 5}}
-              >
-                <XAxis dataKey="date" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line
-                  type="monotone"
-                  dataKey="confirmed"
-                  stroke="#FF073A"
-                  className="line-bar1"
-                />
-              </LineChart>
-            </div>
-          </div>
-          <div className="Line-Chart-container1">
-            <div className="Line-chart-App1 ">
-              <LineChart
-                width={730}
-                height={250}
-                data={chartsDataList}
-                margin={{top: 5, right: 30, left: 20, bottom: 5}}
-              >
-                <XAxis dataKey="date" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line
-                  type="monotone"
-                  dataKey="active"
-                  stroke="#007BFF"
-                  className="line-bar1"
-                />
-              </LineChart>
-            </div>
-          </div>
-
-          <div className="Line-Chart-container1">
-            <div className="Line-chart-App2">
-              <LineChart
-                width={730}
-                height={250}
-                data={chartsDataList}
-                margin={{top: 5, right: 30, left: 20, bottom: 5}}
-              >
-                <XAxis dataKey="date" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line
-                  type="monotone"
-                  dataKey="recovered"
-                  stroke="#27A243"
-                  className="line-bar1"
-                />
-              </LineChart>
-            </div>
-          </div>
-          <div className="Line-Chart-container1">
-            <div className="Line-chart-App3">
-              <LineChart
-                width={730}
-                height={250}
-                data={chartsDataList}
-                margin={{top: 5, right: 30, left: 20, bottom: 5}}
-              >
-                <XAxis dataKey="date" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line
-                  type="monotone"
-                  dataKey="deceased"
-                  stroke="#6C757D"
-                  className="line-bar1"
-                />
-              </LineChart>
-            </div>
-          </div>
-          <div className="Line-Chart-container1">
-            <div className="Line-chart-App4">
-              <LineChart
-                width={730}
-                height={250}
-                data={chartsDataList}
-                margin={{top: 5, right: 30, left: 20, bottom: 5}}
-              >
-                <XAxis dataKey="date" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line
-                  type="monotone"
-                  dataKey="tested"
-                  stroke=" #9673B9"
-                  className="line-bar5"
-                />
-              </LineChart>
-            </div>
-          </div>
-        </div>
-      </>
-    )
-  }
-
-  renderLoadingView1 = () => (
-    <div className="loader-card">
-      <Loader type="ThreeDots" color="#0284c7" height={80} width={80} />
+  renderLoadingView = () => (
+    <div
+      className="products-details-loader-container"
+      testid="timelinesDataLoader"
+    >
+      <Loader type="ThreeDots" color="#0b69ff" height="50" width="50" />
     </div>
   )
 
-  getRenderingStatus = () => {
-    const {apiStatus} = this.state
-    switch (apiStatus) {
-      case apiStatusConstant.success:
-        return this.renderStateTotalChartsData()
-      case apiStatusConstant.failure:
-        return null
-      case apiStatusConstant.inProgress:
-        return this.renderLoadingView1()
+  barChart = () => {
+    const {allData} = this.state
+    const {category} = this.props
+    const barChartType = category.toLowerCase()
 
-      default:
-        return null
+    const toptendata = allData.slice(Math.max(allData.length - 10, 0))
+
+    let colortype = '#9A0E31'
+    if (barChartType === 'confirmed') {
+      colortype = '#9A0E31'
+    } else if (barChartType === 'active') {
+      colortype = '#0A4FA0'
+    } else if (barChartType === 'recovered') {
+      colortype = '#216837'
+    } else if (barChartType === 'deceased') {
+      colortype = '#474C57'
     }
+
+    return (
+      <div className="chart-wrapper">
+        <BarChart width={700} height={450} data={toptendata} barSize={45}>
+          <XAxis
+            dataKey="date"
+            stroke={`${colortype}`}
+            style={{
+              fontFamily: 'Roboto',
+              fontWeight: 500,
+              textTransform: 'uppercase',
+            }}
+            dy={10}
+          />
+          <Tooltip />
+          <Legend />
+          <Bar
+            dataKey={`${barChartType}`}
+            fill={`${colortype}`}
+            label={{position: 'top', fill: '#fff'}}
+            radius={[8, 8, 0, 0]}
+          />
+        </BarChart>
+      </div>
+    )
   }
 
-  renderBarGraphView = () => {
-    const {listCasesStatus} = this.props
-    switch (listCasesStatus) {
-      case casesStatusConstant.confirmed:
-        return this.renderConfirmedBarGraphView()
-      case casesStatusConstant.active:
-        return this.renderActiveBarGraphView()
-      case casesStatusConstant.recovered:
-        return this.renderRecoveredBarGraphView()
-
-      case casesStatusConstant.deceased:
-        return this.renderDeceasedBarGraphView()
-
-      default:
-        return null
-    }
+  graph = (type, color) => {
+    const {forOtherChart} = this.state
+    return (
+      <div>
+        <LineChart
+          width={800}
+          height={250}
+          data={forOtherChart}
+          margin={{top: 5, right: 30, left: 20, bottom: 5}}
+        >
+          <XAxis
+            dataKey="date"
+            style={{
+              fontFamily: 'Roboto',
+              fontWeight: 500,
+              textTransform: 'uppercase',
+            }}
+            dy={10}
+          />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Line type="monotone" dataKey={type} stroke={color} />
+        </LineChart>
+      </div>
+    )
   }
+
+  allChartsView = () => (
+    <>
+      <div className="barchart-container">{this.barChart()}</div>
+
+      <h1 className="charts-title">Spread Trends</h1>
+      <div testid="lineChartsContainer" className="barcharts-container">
+        <div className="charts confirmed-background">
+          {this.graph('confirmed', '#FF073A')}
+        </div>
+        <div className="charts active-background">
+          {this.graph('active', '#007BFF')}
+        </div>
+        <div className="charts recovered-background">
+          {this.graph('recovered', '#27A243')}
+        </div>
+        <div className="charts deceased-background">
+          {this.graph('deceased', '#6C757D')}
+        </div>
+        <div className="charts tested-background">
+          {this.graph('tested', '#9673B9')}
+        </div>
+      </div>
+    </>
+  )
 
   render() {
-    return <div>{this.getRenderingStatus()}</div>
+    const {isLoading} = this.state
+    const showAllData = isLoading
+      ? this.renderLoadingView()
+      : this.allChartsView()
+    return <div className="charts-container">{showAllData}</div>
   }
 }
+
 export default Covid19DateWiseCharts

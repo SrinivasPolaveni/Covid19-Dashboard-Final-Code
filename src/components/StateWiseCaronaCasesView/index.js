@@ -1,9 +1,13 @@
 import {Component} from 'react'
 import Loader from 'react-loader-spinner'
+
 import Header from '../Header'
 import Footer from '../Footer'
+
 import DistrictCaseDetails from '../DistrictCaseDetails'
+import StateTotalCasesData from '../StateTotalCasesData'
 import Covid19DateWiseCharts from '../Covid19DateWiseCharts'
+
 import './index.css'
 
 const statesList = [
@@ -153,727 +157,180 @@ const statesList = [
   },
 ]
 
-const apiStatusConstant = {
-  initial: 'INITIAL',
-  success: 'SUCCESS',
-  failure: 'FAILURE',
-  inProgress: 'INPROGRESS',
-}
-
-const casesStatusConstant = {
-  confirmed: 'CONFIRMED',
-  active: 'ACTIVE',
-  recovered: 'RECOVERED',
-  deceased: 'DECEASED',
-}
-
 class StateWiseCaronaCasesView extends Component {
   state = {
-    apiStatus: apiStatusConstant.initial,
-    listCasesStatus: casesStatusConstant.confirmed,
-    dataList: {},
+    isLoading: true,
+    activeTab: true,
+    category: 'Confirmed',
+    dataArray: [],
+    eachStateTotalData: [],
+    nameOfState: '',
+    stateId: '',
+    stateCode: '',
+    totalTestedData: 0,
+    date: '',
   }
 
   componentDidMount() {
-    this.getCovid19TotalData()
+    this.getAllStatesData()
   }
 
-  successfullySetData = data => {
-    this.setState({apiStatus: apiStatusConstant.success, dataList: data})
-  }
-
-  getCovid19TotalData = async () => {
-    this.setState({apiStatus: apiStatusConstant.inProgress})
-
-    const apiUrl = 'https://apis.ccbp.in/covid19-state-wise-data'
-    const option = {
+  getAllStatesData = async () => {
+    const {match} = this.props
+    const {params} = match
+    const {stateCode} = params
+    const apiUrl = `https://apis.ccbp.in/covid19-state-wise-data/`
+    const options = {
       method: 'GET',
     }
-    const response = await fetch(apiUrl, option)
-    const data = await response.json()
-    if (response.ok === true) {
-      this.successfullySetData(data)
+    const response = await fetch(apiUrl, options)
+    if (response.ok) {
+      const data = await response.json()
+      const stateTastedData = data[stateCode].total.tested
+      const stateObject = statesList.filter(
+        each => each.state_code === stateCode,
+      )
+      const eachState = data[stateCode].total
+      const stateName = stateObject[0].state_name
+      const dateData = new Date(data[stateCode].meta.last_updated)
+      this.setState({
+        isLoading: false,
+        eachStateTotalData: eachState,
+        totalTestedData: stateTastedData,
+        nameOfState: stateName,
+        stateId: stateCode,
+        dataArray: data,
+        date: dateData,
+        stateCode,
+      })
+    } else {
+      console.log('Fetch Error')
     }
   }
 
-  renderStateName = () => {
-    const {dataList} = this.state
+  onGetCategory = categoryVal => {
+    this.setState({category: categoryVal, activeTab: false})
+  }
 
-    const {match} = this.props
-    const {params} = match
-    const {stateCode} = params
-    const {total, meta} = dataList[stateCode]
-    const {tested} = total
-    const lastUpdated1 = meta.last_updated
-
-    const lastUpdated = new Date(lastUpdated1)
-
-    const date = lastUpdated.getDate()
-    const month = lastUpdated.getMonth()
-    const year = lastUpdated.getFullYear()
-
-    const newDate = `${date}-${month + 1}-${year}`
-
-    let stateName = ''
-
-    statesList.forEach(eachItem => {
-      if (eachItem.state_code === stateCode) {
-        stateName = eachItem.state_name
-      }
-      return eachItem
-    })
-
-    return (
-      <div className="search-state-name-card">
-        <div className="search-state-name-card1">
-          <div className="search-state-name-card2">
-            <h1 className="search-state-name-heading">{stateName}</h1>
-          </div>
-          <p className="search-state-name-paragraph">
-            Last update on {newDate}
-          </p>
-        </div>
-        <div className="search-state-name-card1">
-          <p className="search-state-name-paragraph">Tested</p>
-          <p className="search-state-name-paragraph1">{tested}</p>
-        </div>
+  renderLoader = () => (
+    <>
+      <div className="loader-container" testid="stateDetailsLoader">
+        <Loader type="ThreeDots" color="blue" height="50" width="50" />
       </div>
-    )
-  }
-
-  getDistrictWiseConfirmedCases = () => {
-    const {dataList} = this.state
-
-    const {match} = this.props
-    const {params} = match
-    const {stateCode} = params
-    const {districts} = dataList[stateCode]
-    console.log(districts)
-
-    function convertObjectsDataIntoListItemsUsingForInMethod() {
-      const resultList = []
-
-      const keyNames = Object.keys(districts)
-
-      keyNames.forEach(keyName => {
-        if (districts[keyName]) {
-          const {total} = districts[keyName]
-
-          const confirmed = total.confirmed ? total.confirmed : 0
-          const deceased = total.deceased ? total.deceased : 0
-          const recovered = total.recovered ? total.recovered : 0
-          const tested = total.tested ? total.tested : 0
-
-          resultList.push({
-            name: keyName,
-            confirmed,
-            deceased,
-            recovered,
-            tested,
-            active: confirmed - (deceased + recovered),
-          })
-        }
-      })
-      return resultList
-    }
-
-    const listFormattedDataUsingForInMethod = convertObjectsDataIntoListItemsUsingForInMethod()
-    listFormattedDataUsingForInMethod.sort((x, y) => y.confirmed - x.confirmed)
-    return (
-      <ul className="district-cases-container-view">
-        {listFormattedDataUsingForInMethod.map(eachItem => (
-          <DistrictCaseDetails
-            key={eachItem.name}
-            CaseDetails={eachItem}
-            totalCases={eachItem.confirmed}
-          />
-        ))}
-      </ul>
-    )
-  }
-
-  getDistrictWiseActiveCases = () => {
-    const {dataList} = this.state
-
-    const {match} = this.props
-    const {params} = match
-    const {stateCode} = params
-    const {districts} = dataList[stateCode]
-    console.log(districts)
-
-    function convertObjectsDataIntoListItemsUsingForInMethod() {
-      const resultList = []
-
-      const keyNames = Object.keys(districts)
-
-      keyNames.forEach(keyName => {
-        if (districts[keyName]) {
-          const {total} = districts[keyName]
-
-          const confirmed = total.confirmed ? total.confirmed : 0
-          const deceased = total.deceased ? total.deceased : 0
-          const recovered = total.recovered ? total.recovered : 0
-          const tested = total.tested ? total.tested : 0
-
-          resultList.push({
-            name: keyName,
-            confirmed,
-            deceased,
-            recovered,
-            tested,
-            active: confirmed - (deceased + recovered),
-          })
-        }
-      })
-      return resultList
-    }
-
-    const listFormattedDataUsingForInMethod = convertObjectsDataIntoListItemsUsingForInMethod()
-    listFormattedDataUsingForInMethod.sort((x, y) => y.active - x.active)
-    return (
-      <ul className="district-cases-container-view">
-        {listFormattedDataUsingForInMethod.map(eachItem => (
-          <DistrictCaseDetails
-            key={eachItem.name}
-            CaseDetails={eachItem}
-            totalCases={eachItem.active}
-          />
-        ))}
-      </ul>
-    )
-  }
-
-  getDistrictWiseRecoveredCases = () => {
-    const {dataList} = this.state
-
-    const {match} = this.props
-    const {params} = match
-    const {stateCode} = params
-    const {districts} = dataList[stateCode]
-    console.log(districts)
-
-    function convertObjectsDataIntoListItemsUsingForInMethod() {
-      const resultList = []
-
-      const keyNames = Object.keys(districts)
-
-      keyNames.forEach(keyName => {
-        if (districts[keyName]) {
-          const {total} = districts[keyName]
-
-          const confirmed = total.confirmed ? total.confirmed : 0
-          const deceased = total.deceased ? total.deceased : 0
-          const recovered = total.recovered ? total.recovered : 0
-          const tested = total.tested ? total.tested : 0
-
-          resultList.push({
-            name: keyName,
-            confirmed,
-            deceased,
-            recovered,
-            tested,
-            active: confirmed - (deceased + recovered),
-          })
-        }
-      })
-      return resultList
-    }
-
-    const listFormattedDataUsingForInMethod = convertObjectsDataIntoListItemsUsingForInMethod()
-    listFormattedDataUsingForInMethod.sort((x, y) => y.recovered - x.recovered)
-    return (
-      <ul className="district-cases-container-view">
-        {listFormattedDataUsingForInMethod.map(eachItem => (
-          <DistrictCaseDetails
-            key={eachItem.name}
-            CaseDetails={eachItem}
-            totalCases={eachItem.recovered}
-          />
-        ))}
-      </ul>
-    )
-  }
-
-  getDistrictWiseDeceasedCases = () => {
-    const {dataList} = this.state
-
-    const {match} = this.props
-    const {params} = match
-    const {stateCode} = params
-    const {districts} = dataList[stateCode]
-    console.log(districts)
-
-    function convertObjectsDataIntoListItemsUsingForInMethod() {
-      const resultList = []
-
-      const keyNames = Object.keys(districts)
-
-      keyNames.forEach(keyName => {
-        if (districts[keyName]) {
-          const {total} = districts[keyName]
-
-          const confirmed = total.confirmed ? total.confirmed : 0
-          const deceased = total.deceased ? total.deceased : 0
-          const recovered = total.recovered ? total.recovered : 0
-          const tested = total.tested ? total.tested : 0
-
-          resultList.push({
-            name: keyName,
-            confirmed,
-            deceased,
-            recovered,
-            tested,
-            active: confirmed - (deceased + recovered),
-          })
-        }
-      })
-      return resultList
-    }
-
-    const listFormattedDataUsingForInMethod = convertObjectsDataIntoListItemsUsingForInMethod()
-    listFormattedDataUsingForInMethod.sort((x, y) => y.deceased - x.deceased)
-    return (
-      <ul className="district-cases-container-view">
-        {listFormattedDataUsingForInMethod.map(eachItem => (
-          <DistrictCaseDetails
-            key={eachItem.name}
-            CaseDetails={eachItem}
-            totalCases={eachItem.deceased}
-          />
-        ))}
-      </ul>
-    )
-  }
-
-  onChangeConfirmedCasesView = () => {
-    this.setState({listCasesStatus: casesStatusConstant.confirmed})
-  }
-
-  onChangeActiveCasesView = () => {
-    this.setState({listCasesStatus: casesStatusConstant.active})
-  }
-
-  onChangeRecoveredCasesView = () => {
-    this.setState({listCasesStatus: casesStatusConstant.recovered})
-  }
-
-  onChangeDeceasedCasesView = () => {
-    this.setState({listCasesStatus: casesStatusConstant.deceased})
-  }
-
-  renderStateTotalConfirmedData = () => {
-    const {dataList, listCasesStatus} = this.state
-
-    const {match} = this.props
-    const {params} = match
-    const {stateCode} = params
-    const {total} = dataList[stateCode]
-    const {confirmed, deceased, recovered} = total
-    const totalConfirmed = confirmed
-    const deceasedCases = deceased
-    const recoveredCases = recovered
-    const activeCases = totalConfirmed - (recoveredCases + deceasedCases)
-
-    return (
-      <>
-        <div className="country-cases-container">
-          <button
-            type="button"
-            className="cases-change-button"
-            onClick={this.onChangeConfirmedCasesView}
-          >
-            <div className="test-confirmed-cases-card">
-              <p className="confirmed-heading">Confirmed</p>
-              <img
-                src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023343/check-mark_1_1_onb2zw.png"
-                alt="state specific confirmed cases pic"
-                className="cases-image"
-              />
-              <p className="confirmed-heading">{totalConfirmed}</p>
-            </div>
-          </button>
-          <button
-            type="button"
-            className="cases-change-button"
-            onClick={this.onChangeActiveCasesView}
-          >
-            <div className="test-cases-card">
-              <p className="Active-heading">Active</p>
-              <img
-                src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023152/protection_1_gwazvg.png"
-                alt="state specific active cases pic"
-                className="cases-image"
-              />
-              <p className="Active-heading">{activeCases}</p>
-            </div>
-          </button>
-          <button
-            type="button"
-            className="cases-change-button"
-            onClick={this.onChangeRecoveredCasesView}
-          >
-            <div className="test-cases-card">
-              <p className="Recovered-heading">Recovered</p>
-              <img
-                src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023111/recovered_1_f7zgdm.png"
-                alt="state specific recovered cases pic"
-                className="cases-image"
-              />
-              <p className="Recovered-heading">{recoveredCases}</p>
-            </div>
-          </button>
-          <button
-            type="button"
-            className="cases-change-button"
-            onClick={this.onChangeDeceasedCasesView}
-          >
-            <div className="test-cases-card">
-              <p className="Deceased-heading">Deceased</p>
-              <img
-                src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023172/breathing_1_yottpw.png"
-                alt="state specific deceased cases pic"
-                className="cases-image"
-              />
-              <p className="Deceased-heading">{deceasedCases}</p>
-            </div>
-          </button>
-        </div>
-        <div className="district-main-container">
-          <h1 className="confirmed-heading1">Top Districts</h1>
-
-          {this.getDistrictWiseConfirmedCases()}
-        </div>
-        <Covid19DateWiseCharts
-          stateCode={stateCode}
-          listCasesStatus={listCasesStatus}
-        />
-      </>
-    )
-  }
-
-  renderActiveView = () => {
-    const {dataList, listCasesStatus} = this.state
-
-    const {match} = this.props
-    const {params} = match
-    const {stateCode} = params
-    const {total} = dataList[stateCode]
-    const {confirmed, deceased, recovered} = total
-    const totalConfirmed = confirmed
-    const deceasedCases = deceased
-    const recoveredCases = recovered
-    const activeCases = totalConfirmed - (recoveredCases + deceasedCases)
-
-    return (
-      <>
-        <div className="country-cases-container">
-          <button
-            type="button"
-            className="cases-change-button"
-            onClick={this.onChangeConfirmedCasesView}
-          >
-            <div className="test-cases-card">
-              <p className="confirmed-heading">Confirmed</p>
-              <img
-                src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023343/check-mark_1_1_onb2zw.png"
-                alt="state specific confirmed cases pic"
-                className="image"
-              />
-              <p className="confirmed-heading">{totalConfirmed}</p>
-            </div>
-          </button>
-          <button
-            type="button"
-            className="cases-change-button"
-            onClick={this.onChangeActiveCasesView}
-          >
-            <div className="test-Active-cases-card">
-              <p className="Active-heading">Active</p>
-              <img
-                src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023152/protection_1_gwazvg.png"
-                alt="state specific active cases pic"
-                className="image"
-              />
-              <p className="Active-heading">{activeCases}</p>
-            </div>
-          </button>
-          <button
-            type="button"
-            className="cases-change-button"
-            onClick={this.onChangeRecoveredCasesView}
-          >
-            <div className="test-cases-card">
-              <p className="Recovered-heading">Recovered</p>
-              <img
-                src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023111/recovered_1_f7zgdm.png"
-                alt="state specific recovered cases pic"
-                className="image"
-              />
-              <p className="Recovered-heading">{recoveredCases}</p>
-            </div>
-          </button>
-          <button
-            type="button"
-            className="cases-change-button"
-            onClick={this.onChangeDeceasedCasesView}
-          >
-            <div className="test-cases-card">
-              <p className="Deceased-heading">Deceased</p>
-              <img
-                src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023172/breathing_1_yottpw.png"
-                alt="state specific deceased cases pic"
-                className="image"
-              />
-              <p className="Deceased-heading">{deceasedCases}</p>
-            </div>
-          </button>
-        </div>
-        <div className="district-main-container">
-          <h1 className="confirmed-heading2">Top Districts</h1>
-
-          {this.getDistrictWiseActiveCases()}
-        </div>
-        <Covid19DateWiseCharts
-          stateCode={stateCode}
-          listCasesStatus={listCasesStatus}
-        />
-      </>
-    )
-  }
-
-  renderRecoveredView = () => {
-    const {dataList, listCasesStatus} = this.state
-
-    const {match} = this.props
-    const {params} = match
-    const {stateCode} = params
-    const {total} = dataList[stateCode]
-    const {confirmed, deceased, recovered} = total
-    const totalConfirmed = confirmed
-    const deceasedCases = deceased
-    const recoveredCases = recovered
-    const activeCases = totalConfirmed - (recoveredCases + deceasedCases)
-
-    return (
-      <>
-        <div className="country-cases-container">
-          <button
-            type="button"
-            className="cases-change-button"
-            onClick={this.onChangeConfirmedCasesView}
-          >
-            <div className="test-cases-card">
-              <p className="confirmed-heading">Confirmed</p>
-              <img
-                src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023343/check-mark_1_1_onb2zw.png"
-                alt="state specific confirmed cases pic"
-                className="image"
-              />
-              <p className="confirmed-heading">{totalConfirmed}</p>
-            </div>
-          </button>
-          <button
-            type="button"
-            className="cases-change-button"
-            onClick={this.onChangeActiveCasesView}
-          >
-            <div className="test-cases-card">
-              <p className="Active-heading">Active</p>
-              <img
-                src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023152/protection_1_gwazvg.png"
-                alt="state specific active cases pic"
-                className="image"
-              />
-              <p className="Active-heading">{activeCases}</p>
-            </div>
-          </button>
-          <button
-            type="button"
-            className="cases-change-button"
-            onClick={this.onChangeRecoveredCasesView}
-          >
-            <div className="test-Recovered-cases-card">
-              <p className="Recovered-heading">Recovered</p>
-              <img
-                src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023111/recovered_1_f7zgdm.png"
-                alt="state specific recovered cases pic"
-                className="image"
-              />
-              <p className="Recovered-heading">{recoveredCases}</p>
-            </div>
-          </button>
-          <button
-            type="button"
-            className="cases-change-button"
-            onClick={this.onChangeDeceasedCasesView}
-          >
-            <div className="test-cases-card">
-              <p className="Deceased-heading">Deceased</p>
-              <img
-                src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023172/breathing_1_yottpw.png"
-                alt="state specific deceased cases pic"
-                className="image"
-              />
-              <p className="Deceased-heading">{deceasedCases}</p>
-            </div>
-          </button>
-        </div>
-        <div className="district-main-container">
-          <h1 className="confirmed-heading3">Top Districts</h1>
-
-          {this.getDistrictWiseRecoveredCases()}
-        </div>
-        <Covid19DateWiseCharts
-          stateCode={stateCode}
-          listCasesStatus={listCasesStatus}
-        />
-      </>
-    )
-  }
-
-  renderDeceasedView = () => {
-    const {dataList, listCasesStatus} = this.state
-
-    const {match} = this.props
-    const {params} = match
-    const {stateCode} = params
-    const {total} = dataList[stateCode]
-    const {confirmed, deceased, recovered} = total
-    const totalConfirmed = confirmed
-    const deceasedCases = deceased
-    const recoveredCases = recovered
-    const activeCases = totalConfirmed - (recoveredCases + deceasedCases)
-
-    return (
-      <>
-        <div className="country-cases-container">
-          <button
-            type="button"
-            className="cases-change-button"
-            onClick={this.onChangeConfirmedCasesView}
-          >
-            <div className="test-cases-card">
-              <p className="confirmed-heading">Confirmed</p>
-              <img
-                src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023343/check-mark_1_1_onb2zw.png"
-                alt="state specific confirmed cases pic"
-                className="image"
-              />
-              <p className="confirmed-heading">{totalConfirmed}</p>
-            </div>
-          </button>
-          <button
-            type="button"
-            className="cases-change-button"
-            onClick={this.onChangeActiveCasesView}
-          >
-            <div className="test-cases-card">
-              <p className="Active-heading">Active</p>
-              <img
-                src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023152/protection_1_gwazvg.png"
-                alt="state specific active cases pic"
-                className="image"
-              />
-              <p className="Active-heading">{activeCases}</p>
-            </div>
-          </button>
-          <button
-            type="button"
-            className="cases-change-button"
-            onClick={this.onChangeRecoveredCasesView}
-          >
-            <div className="test-cases-card">
-              <p className="Recovered-heading">Recovered</p>
-              <img
-                src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023111/recovered_1_f7zgdm.png"
-                alt="state specific recovered cases pic"
-                className="image"
-              />
-              <p className="Recovered-heading">{recoveredCases}</p>
-            </div>
-          </button>
-          <button
-            type="button"
-            className="cases-change-button"
-            onClick={this.onChangeDeceasedCasesView}
-          >
-            <div className="test-Deceased-cases-card">
-              <p className="Deceased-heading">Deceased</p>
-              <img
-                src="https://res.cloudinary.com/dudkplmad/image/upload/v1666023172/breathing_1_yottpw.png"
-                alt="state specific deceased cases pic"
-                className="image"
-              />
-              <p className="Deceased-heading">{deceasedCases}</p>
-            </div>
-          </button>
-        </div>
-        <div className="district-main-container">
-          <h1 className="confirmed-heading4">Top Districts</h1>
-
-          {this.getDistrictWiseDeceasedCases()}
-        </div>
-        <Covid19DateWiseCharts
-          stateCode={stateCode}
-          listCasesStatus={listCasesStatus}
-        />
-      </>
-    )
-  }
-
-  getRenderingCasesStatus = () => {
-    const {listCasesStatus} = this.state
-    switch (listCasesStatus) {
-      case casesStatusConstant.confirmed:
-        return this.renderStateTotalConfirmedData()
-      case casesStatusConstant.active:
-        return this.renderActiveView()
-      case casesStatusConstant.recovered:
-        return this.renderRecoveredView()
-
-      case casesStatusConstant.deceased:
-        return this.renderDeceasedView()
-
-      default:
-        return null
-    }
-  }
-
-  renderSuccessView = () => (
-    <div>
-      {this.renderStateName()}
-      {this.getRenderingCasesStatus()}
-
-      <Footer />
-    </div>
+    </>
   )
 
-  renderLoadingView = () => (
-    <div className="loader-card">
-      <Loader type="ThreeDots" color="#0284c7" height={80} width={80} />
-    </div>
-  )
+  getCategoryWiseData = () => {
+    const {category, stateId, dataArray} = this.state
+    const districtOutput = dataArray[stateId].districts
+    const distNamesList = Object.keys(districtOutput)
+    const categoryLower = category.toLowerCase()
 
-  getRenderingStatus = () => {
-    const {apiStatus} = this.state
-    switch (apiStatus) {
-      case apiStatusConstant.success:
-        return this.renderSuccessView()
-      case apiStatusConstant.failure:
-        return null
-      case apiStatusConstant.inProgress:
-        return this.renderLoadingView()
+    const categoryData = distNamesList.map(element => ({
+      distName: element,
+      value: districtOutput[element].total[categoryLower]
+        ? districtOutput[element].total[categoryLower]
+        : 0,
+    }))
 
-      default:
-        return null
+    categoryData.sort((a, b) => b.value - a.value)
+
+    const activeCases = distNamesList.map(element => ({
+      distName: element,
+      value:
+        districtOutput[element].total.confirmed -
+        (districtOutput[element].total.recovered +
+          districtOutput[element].total.deceased)
+          ? districtOutput[element].total.confirmed -
+            (districtOutput[element].total.recovered +
+              districtOutput[element].total.deceased)
+          : 0,
+    }))
+    activeCases.sort((a, b) => b.value - a.value)
+
+    if (categoryLower === 'active') {
+      return activeCases
     }
+    return categoryData
+  }
+
+  renderStateView = () => {
+    const {
+      activeTab,
+      totalTestedData,
+      eachStateTotalData,
+      nameOfState,
+      date,
+      category,
+      stateCode,
+    } = this.state
+
+    const categoryData = this.getCategoryWiseData()
+
+    return (
+      <>
+        <div className="state-name-row">
+          <h1 className="state-title">{nameOfState}</h1>
+          <div className="testNo-container">
+            <p className="test-title">Tested</p>
+            <p className="testNo">{totalTestedData}</p>
+          </div>
+        </div>
+
+        <div>
+          <p className="last-date">{`last update on ${date}`}</p>
+        </div>
+
+        <div className="align-center-row">
+          <div className="country-stats">
+            <StateTotalCasesData
+              onGetCategory={this.onGetCategory}
+              eachStateTotalData={eachStateTotalData}
+              active={activeTab}
+            />
+          </div>
+        </div>
+
+        <div className="total-district-data-block">
+          <h1 className={`district-heading ${category}-color`}>
+            Top Districts
+          </h1>
+          <div className="ul-parent-list">
+            <div className="district-data-ul-list">
+              <ul
+                className="districts-container"
+                testid="topDistrictsUnorderedList"
+              >
+                {categoryData.map(each => (
+                  <DistrictCaseDetails
+                    key={each.distName}
+                    number={each.value}
+                    name={each.distName}
+                  />
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div className="graphs-data" testid="lineChartsContainer">
+            <Covid19DateWiseCharts stateCode={stateCode} category={category} />
+          </div>
+        </div>
+      </>
+    )
   }
 
   render() {
+    const {isLoading} = this.state
     return (
       <>
         <Header />
-        <div className="home-main-container">{this.getRenderingStatus()}</div>
+        <div className="single-state-main-container">
+          <div className="state-content-container">
+            {isLoading ? this.renderLoader() : this.renderStateView()}
+          </div>
+        </div>
+        <Footer />
       </>
     )
   }

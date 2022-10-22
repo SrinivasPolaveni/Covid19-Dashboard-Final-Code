@@ -1,14 +1,14 @@
 import './index.css'
 
 const DistrictCaseDetails = props => {
-  const {CaseDetails, totalCases} = props
-  const {name} = CaseDetails
+  const {number, name} = props
 
   return (
-    <li className="district-case-list">
-      <p className="district-case-cases1">{totalCases}</p>
-      <p className="district-case-cases2">{name}</p>
+    <li className="list-style">
+      <p className="district-numbers">{number}</p>
+      <p className="district-name">{name}</p>
     </li>
   )
 }
+
 export default DistrictCaseDetails
